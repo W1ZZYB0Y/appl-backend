@@ -10,7 +10,13 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://jaws-student-allowanceprogram.vercel.app",
+    methods: ["GET", "POST"],
+    credentials: true,
+  })
+);
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "public"))); // Serve frontend
 
@@ -18,8 +24,8 @@ app.use(express.static(path.join(__dirname, "public"))); // Serve frontend
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.EMAIL_USER,   // from .env
-    pass: process.env.EMAIL_PASS,   // from .env
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
   },
 });
 
@@ -27,7 +33,7 @@ const transporter = nodemailer.createTransport({
 app.post("/submit-form", async (req, res) => {
   const formData = req.body;
 
-  // Optional: Save data to file
+  // Save data to file
   const timestamp = Date.now();
   const filename = `data/form-${timestamp}.json`;
   fs.writeFileSync(filename, JSON.stringify(formData, null, 2));
@@ -43,7 +49,7 @@ Your application has been received successfully and is being processed.
 
 We will notify you once there's an update.
 
-Regards,  
+Regards,
 Application Team`,
   };
 
