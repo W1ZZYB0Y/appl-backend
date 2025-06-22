@@ -47,7 +47,7 @@ app.post("/submit-form", async (req, res) => {
 
 Your application has been received successfully and is being processed.
 
-We will notify you once there's an update.
+We will send you an email for you to fill in your account details once your information is verifed
 
 Regards,
 Application Team`,
